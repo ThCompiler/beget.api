@@ -1,0 +1,58 @@
+site_name: Template # TODO: Set site name of you docs
+repo_url: https://github.com/ThCompiler/go-ci-release-repository # TODO: Set path to you repository
+repo_name: ThCompiler/go-ci-release-repository # TODO: Set name of you repository
+copyright: Copyright &copy; 2024 TheCompiler # TODO: Set copyright of you docs
+nav:
+  - Main: index.md
+theme:
+  name: material
+  custom_dir: docs/overrides # TODO: You can remove this, if you does not want use connection of comments in docs with github Discussions
+  language: en
+  features:
+    - search.suggest
+    - search.highlight
+    - navigation.instant
+    - navigation.indexes
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to system preference
+  icon:
+    repo: fontawesome/brands/github-alt
+
+  favicon: icon/logo.png
+  logo: icon/logo.png
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ThCompiler/go-ci-release-repository # TODO: Set path to you repository
+      name: github repository
+
+  version:
+    provider: mike
