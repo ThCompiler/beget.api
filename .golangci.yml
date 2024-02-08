@@ -65,6 +65,8 @@ linters-settings:
     # Default: 0.8
     confidence: 0.1
     rules:
+      - name: enforce-repeated-arg-type-style
+        disabled: true
       - name: add-constant
         severity: warning
         disabled: false
