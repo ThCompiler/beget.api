@@ -2,8 +2,7 @@ name: Docs deploy CI
 on:
   push:
     branches:
-      - main
-      - docs #TODO: remove this and set you docs branch
+      - docs
 permissions:
   contents: write
 jobs:

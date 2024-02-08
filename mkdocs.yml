@@ -1,14 +1,29 @@
-site_name: Template # TODO: Set site name of you docs
-repo_url: https://github.com/ThCompiler/go-ci-release-repository # TODO: Set path to you repository
-repo_name: ThCompiler/go-ci-release-repository # TODO: Set name of you repository
-copyright: Copyright &copy; 2024 TheCompiler # TODO: Set copyright of you docs
+site_name: Go.Beget.API
+repo_url: https://github.com/ThCompiler/go.beget.api.git
+repo_name: ThCompiler/go.beget.api
+copyright: Copyright &copy; 2024 TheCompiler
 nav:
-  - Main: index.md
+  - Главная: index.md
+  - Установка: install.md
+  - Функции API:
+      - Основное: api/info.md
+      - Управление аккаунтом: api/account.md
+      - Управление бэкапами: api/backup.md
+      - Управление Cron: api/cron.md
+      - Управление DNS: api/dns.md
+      - Управление FTP: api/ftp.md
+      - Управление MySQL: api/mysql.md
+      - Управление сайтами: api/site.md
+      - Управление доменами: api/domain.md
+      - Управление почтой: api/mail.md
+      - Сбор статистики: api/stat.md
+  - Пример: example.md
 theme:
   name: material
-  custom_dir: docs/overrides # TODO: You can remove this, if you does not want use connection of comments in docs with github Discussions
-  language: en
+  custom_dir: docs/overrides
   features:
+    - content.code.select
+    - content.code.copy
     - search.suggest
     - search.highlight
     - navigation.instant
@@ -48,11 +63,27 @@ markdown_extensions:
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/ThCompiler/go-ci-release-repository # TODO: Set path to you repository
+      link: https://github.com/ThCompiler/go.beget.api.git
       name: github repository
-
+  alternate:
+#    - name: English
+#      link: /en/
+#      lang: en
+    - name: Russian
+      link: /ru/
+      lang: ru
   version:
     provider: mike
+plugins:
+  - projects:
+      projects_dir: docs
