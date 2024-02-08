@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"go-project/version"
+
+	"github.com/ThCompiler/go.beget.api/version"
 )
 
 func main() {

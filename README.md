@@ -1,21 +1,35 @@
-# go-ci-release-repository
+# Go.beget.api
 
-Simple template of go repository with workflow for ci and release
+A simple library that implements the open API of the service [baget.com](https://beget.com/)
+to perform the functions of the control panel.
 
-## Usage
+### Install
 
-In ``main`` branch contains base repository without workflow of release artifacts and docs.
+To work with the library, you need the golang version: ``1.19``. The installation can be done using the command:
 
-In ``docs`` branch add workflow for generating mkdocs.
+```cmd
+go get github.com/ThCompiler/github.com/ThCompiler/go.beget.api
+```
 
-In ``artifacts`` branch add workflow for generating release with artifacts as binaries.
+### Functions supported by the Beget.API
 
-You can merge needed branches to main to add new workflow functional.
+* Get information about your hosting account;
+* Manage backups;
+* Manage the task scheduler;
+* Configure DNS;
+* Manage databases;
+* Create and delete websites on your account;
+* Manage domain settings;
+* Manage mailboxes.
 
-Version expected start with ``v[n].[n].[n]*``, where ``[n]`` is any digit. Example ``v0.0.1-alpha``.
+Detailed information about the API is provided on the **Beget`s** [documentation site](https://beget.com/ru/kb/api/beget-api).
 
-## Artifacts
+### Documentation
 
-If you want to print version from your app with `--version` flag, you can use version from file `version\version.go`.
-When artifacts will build, information about the build platform will be added to the version in this file. 
-Example it will be `v0.0.1 darwin/arm`.
+The [documentation](https://thcompiler.github.io/beget.api/) provides a description of the library's functions.
+And the [update_hostname](https://github.com/ThCompiler/update_hostname) repository provides an example of usage libraries
+for updating ip for hostname based on the current ip of the server.
+
+### P.S.
+
+Questions and suggestions can be specified in the issue of this repository.
