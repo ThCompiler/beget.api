@@ -5,7 +5,7 @@ to perform the functions of the control panel.
 
 ### Install
 
-To work with the library, you need the golang version: ``1.18``. The installation can be done using the command:
+To work with the library, you need the golang version: ``1.19``. The installation can be done using the command:
 
 ```cmd
 go get github.com/ThCompiler/github.com/ThCompiler/go.beget.api
@@ -26,8 +26,8 @@ Detailed information about the API is provided on the **Beget`s** [documentation
 
 ### Documentation
 
-The [documentation]() provides a description of the library's functions.
-And the [asd]() repository provides an example of usage libraries
+The [documentation](https://thcompiler.github.io/beget.api/) provides a description of the library's functions.
+And the [update_hostname](https://github.com/ThCompiler/update_hostname) repository provides an example of usage libraries
 for updating ip for hostname based on the current ip of the server.
 
 ### P.S.
