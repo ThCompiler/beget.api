@@ -23,3 +23,13 @@
 * CI operation is configured.
 * Added an example of using the library in another repository.
 
+## 0.0.2
+
+## Fixed
+
+### Library
+
+#### Core
+
+* Fixed return ***nil*** error from method *Get* for *BegetResponse* and *Answer*.
+

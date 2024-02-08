@@ -13,6 +13,9 @@ type Answer[Result any] struct {
 }
 
 func (a *Answer[Result]) Get() (*Result, error) {
+	if a.errors == nil {
+		return a.result, nil
+	}
 	return a.result, a.errors
 }
 

@@ -13,6 +13,9 @@ type BegetResponse[Result any] struct {
 }
 
 func (a *BegetResponse[Result]) Get() (*Answer[Result], error) {
+	if a.error == nil {
+		return a.answer, nil
+	}
 	return a.answer, a.error
 }
 
