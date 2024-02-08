@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "[BUG]"
 labels: bug
-assignees: You nickname  # TODO: add you github nickname
+assignees: ThCompiler
 
 ---
 

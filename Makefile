@@ -1,6 +1,6 @@
 BIN_DIR=bin
-BIN=you_app  # TODO: set you app executable name
-PATH_TO_ENTER_POINT=go-project/src   # TODO: set path to main file of you repository
+BIN=beget
+PATH_TO_ENTER_POINT=github.com/ThCompiler/go.beget.api/src
 
 .PHONY: local-build
 local-build: bin-dir
@@ -31,3 +31,7 @@ changelog:
 clean:
 	echo "Cleaning..."; \
 	rm -Rf $(BIN_DIR)
+
+.PHONY: fmt
+fmt:
+	gofumpt -e -w -d -extra .

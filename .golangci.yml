@@ -13,10 +13,11 @@ run:
   # Default: [].
   skip-dirs:
     - version
+    - src
     - workflow
   modules-download-mode: readonly
   allow-parallel-runners: true
-  go: '1.21'
+  go: '1.18'
 # output configuration option
 output:
   # Format: colored-line-number|line-number|json|tab|checkstyle|code-climate|junit-xml|github-actions
@@ -39,12 +40,51 @@ output:
   uniq-by-line: true
   # Add a prefix to the output file references.
   # Default is no prefix.
-  path-prefix: ""
+  path-prefix: "./"
   # Sort results by: filepath, line and column.
-  sort-results: false
+  sort-results: true
 linters-settings:
+  revive:
+    # Maximum number of open files at the same time.
+    # See https://github.com/mgechev/revive#command-line-flags
+    # Defaults to unlimited.
+    max-open-files: 2048
+    # When set to false, ignores files with "GENERATED" header, similar to golint.
+    # See https://github.com/mgechev/revive#available-rules for details.
+    # Default: false
+    ignore-generated-header: true
+    # Sets the default severity.
+    # See https://github.com/mgechev/revive#configuration
+    # Default: warning
+    severity: error
+    # Enable all available rules.
+    # Default: false
+    enable-all-rules: true
+    # Sets the default failure confidence.
+    # This means that linting errors with less than 0.8 confidence will be ignored.
+    # Default: 0.8
+    confidence: 0.1
+    rules:
+      - name: add-constant
+        severity: warning
+        disabled: false
+        arguments:
+          - maxLitCount: "3"
+            allowStrs: '""'
+            allowInts: "0,1,2"
+            allowFloats: "0.0,0.,1.0,1.,2.0,2."
+      - name: confusing-naming
+        disabled: true
+      - name: line-length-limit
+        severity: warning
+        disabled: false
+        arguments: [ 120 ]
+      - name: max-public-structs
+        disabled: true
+      - name: errorf
+        disabled: true
   gci:
-    local-prefixes: github.com/ThCompiler/go_game_constractor
+    local-prefixes: github.com/ThCompiler/go.beget.api
   dupl:
     threshold: 100
   errorlint:
@@ -157,21 +197,19 @@ linters-settings:
     # This logic overrides force-err-cuddling among others.
     force-short-decl-cuddling: false
 linters:
-  presets:
-    - bugs
-    - comment
-    - complexity
-    - error
-    - format
-    - import
-    - module
-    - performance
-    - sql
-    - style
-    - test
-    - unused
+  enable-all: true
   disable:
-    - gocritic
+    - deadcode
+    - scopelint
+    - varcheck
+    - golint
+    - ifshort
+    - structcheck
+    - maligned
+    - depguard
+    - interfacer
+    - tagliatelle
+    - noctx
     - gci
     - wrapcheck
     - varnamelen
