@@ -33,3 +33,24 @@
 
 * Fixed return ***nil*** error from method *Get* for *BegetResponse* and *Answer*.
 
+### Repository
+
+* Fixed the path to documentation in README.
+* Fixed the path to get a package via the `go get` command in the README.
+
+## Changed
+
+### Library
+
+#### Core
+
+* Renamed methods *GetResult* and *MustGetResult* of *BegetResponse* to *GetAnswer* and *MustGetAnswer*.
+* The package structure has been redesigned.
+
+## Added
+
+### Library
+
+#### Core
+
+* Added golang documentation.

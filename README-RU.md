@@ -7,7 +7,7 @@
 Для работы с библиотекой необходима версия golang: ```1.19```. Сама установка может быть произведена с помощью команды:
 
 ```cmd
-go get github.com/ThCompiler/github.com/ThCompiler/go.beget.api
+go get github.com/ThCompiler/go.beget.api
 ```
 
 ### Поддерживаемые Beget.API функции
@@ -25,7 +25,7 @@ go get github.com/ThCompiler/github.com/ThCompiler/go.beget.api
 
 ### Документация
 
-В [документации](https://thcompiler.github.io/beget.api/) представлено описание функций библиотеки. А в репозитории 
+В [документации](https://pkg.go.dev/github.com/ThCompiler/go.beget.api) представлено описание функций библиотеки. А в репозитории 
 [update_hostname](https://github.com/ThCompiler/update_hostname) представлен пример использования 
 библиотеки для обновления данные ip для hostname на основе текущего ip системы.
 
