@@ -47,10 +47,21 @@
 * Renamed methods *GetResult* and *MustGetResult* of *BegetResponse* to *GetAnswer* and *MustGetAnswer*.
 * The package structure has been redesigned.
 
+#### Api
+
+* Made exportable *settableRecords* interface in the **dns** package.
+* Changed type of **records** field in *CallChangeRecords* method to *SettableRecords* in the **dns** package.
+* Deleted unnecessary *SetRecords*, *SetBasicRecords*, *SetNsRecords*, *SetCNameRecords* functions in the **dns** package.
+* Deleted unnecessary *SettingRecords* type in the **dns** package.
+
 ## Added
 
 ### Library
 
 #### Core
+
+* Added golang documentation.
+
+#### Api
 
 * Added golang documentation.

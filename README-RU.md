@@ -1,3 +1,8 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/ThCompiler/go.beget.api)](https://goreportcard.com/report/github.com/ThCompiler/go.beget.api)
+[![Go Reference](https://pkg.go.dev/badge/github.com/ThCompiler/go.beget.api.svg)](https://pkg.go.dev/github.com/ThCompiler/go.beget.api)
+
+[![en](https://img.shields.io/badge/lang-en-red.svg)](./README.md)
+
 # Go.beget.api
 
 Простая библиотека реализующая открытое API сервиса [beget.com](https://beget.com/) для выполнения функций панели управления.

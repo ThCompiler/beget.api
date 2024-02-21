@@ -22,16 +22,17 @@ type Client struct {
 // PrepareRequest is a function to prepare request to Beget.API system.
 // As input parameters, it expects to receive information about the user and a built api method to call.
 // As a result, either a ready-to-execute request to the Beget.API is returned, or one of the errors:
-// - Errors creating api method.
-// - Errors resolving BEGET host
-// - Errors creating HTTP request
+//   - Errors creating api method.
+//   - Errors resolving BEGET host
+//   - Errors creating HTTP request
 //
 // Currently, Golang cannot infer the Result generic parameter from the [APIMethod] interface,
 // so when calling the method, you need to explicitly specify the generic parameter.
-// For example, with method [github.com/ThCompiler/go.beget.api/pkg/beget/api/dns.CallGetData] ([GetData]):
+//
+// For example, with method [github.com/ThCompiler/go.beget.api/api/dns.CallGetData] ([GetData]):
 //
 // client := Client{ login: "user", password: "password" }
-// req, _ := PrepareRequest[github.com/ThCompiler/go.beget.api/pkg/beget/api/result.GetData](client, dns.CallGetData("some.domain.com"))
+// req, _ := PrepareRequest[github.com/ThCompiler/go.beget.api/api/result.GetData](client, dns.CallGetData("some.domain.com"))
 //
 // [GetData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 func PrepareRequest[Result any](c Client, method APIMethod[Result]) (*BegetRequest[Result], error) {

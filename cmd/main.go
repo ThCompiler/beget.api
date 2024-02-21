@@ -18,13 +18,11 @@ func main() {
 	req, err := core.PrepareRequest[result.BoolResult](
 		client,
 		dns.CallChangeRecords("tmp.thecompiler.pw",
-			dns.SetBasicRecords(
-				build.NewBasicRecordsCreator().
-					AddARecords(
-						build.NewARecordCreator().
-							AddRecord(10, "8.8.8.8"),
-					).Create(),
-			),
+			build.NewBasicRecordsCreator().
+				AddARecords(
+					build.NewARecordCreator().
+						AddRecord(10, "8.8.8.8"),
+				).Create(),
 		),
 	)
 	if err != nil {

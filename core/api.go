@@ -4,7 +4,7 @@
 //
 // To generate.The API has a specific response consisting of two parts.
 // The response of the general API and the response of a specific method.
-// More information can be founded in [BegetResponse].
+// More information can be founded in [BegetResponseDoc].
 // In json format response of general API, it represents:
 //
 //	{
@@ -35,11 +35,12 @@
 //
 // The response of a specific method is the value of the "response" field.
 //
-// #Note
+// # Note
+//
 // The value of the "answer" field will be called 'the API method response',
 // and the value of the "result" field will be called 'the API method result'.
 //
-// [BegetResponse] : https://beget.com/ru/kb/api/obshhij-princzip-raboty-s-api#obrabotka-otveta.
+// [BegetResponseDoc]: https://beget.com/ru/kb/api/obshhij-princzip-raboty-s-api#obrabotka-otveta.
 package core
 
 import "net/url"

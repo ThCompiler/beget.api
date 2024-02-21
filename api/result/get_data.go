@@ -6,6 +6,9 @@ import (
 	"github.com/pkg/errors"
 )
 
+// The names json fields of the [getData] response.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 const (
 	isUnderControlField = "is_under_control"
 	isBegetDNSField     = "is_beget_dns"
@@ -15,78 +18,109 @@ const (
 	recordsField        = "records"
 )
 
+// TypeRecords is a type, that specifies the type of the records in the [getData] response.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 type TypeRecords int64
 
 const (
-	Basic = TypeRecords(1)
-	NS    = TypeRecords(2)
-	CNAME = TypeRecords(3)
+	Basic = TypeRecords(1) // type of "A, MX, TXT" records.
+	NS    = TypeRecords(2) // type of NS-records.
+	CNAME = TypeRecords(3) // type of CNAME-records.
 )
 
+// DNSRecords is a representation of the DNS records information in the [getData] response.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 type DNSRecords struct {
-	DNS   []record.DNSRecord   `json:"DNS"`
-	DNSIP []record.DNSIPRecord `json:"DNS_IP"`
+	DNS   []record.DNSRecord   `json:"DNS"`              // DNS records.
+	DNSIP []record.DNSIPRecord `json:"DNS_IP,omitempty"` // DNS_IP records.
 }
 
+// NSRecords is a representation of the NS records information in the [getData] response.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 type NSRecords struct {
 	DNSRecords
-	NSs []record.NSRecord `json:"NS,omitempty"`
+	NSs []record.NSRecord `json:"NS,omitempty"` // NS records.
 }
 
+// CNAMERecords is a representation of the CNAME records information in the [getData] response.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 type CNAMERecords struct {
 	DNSRecords
-	CNames []record.CNAMERecord `json:"CNAME,omitempty"`
+	CNames []record.CNAMERecord `json:"CNAME,omitempty"` // CNAME records.
 }
 
+// BasicRecords is a representation of the "A, MX, TXT" records information in the [getData] response.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 type BasicRecords struct {
 	DNSRecords
-	A    []record.ARecord    `json:"A,omitempty"`
-	AAAA []record.AAAARecord `json:"AAAA,omitempty"`
-	CAA  []record.CAARecord  `json:"CAA,omitempty"`
-	Mx   []record.MXRecord   `json:"MX,omitempty"`
-	Txt  []record.TXTRecord  `json:"TXT,omitempty"`
-	Srv  []record.SRVRecord  `json:"SRV,omitempty"`
+	A    []record.ARecord    `json:"A,omitempty"`    // A records.
+	AAAA []record.AAAARecord `json:"AAAA,omitempty"` // AAAA records.
+	CAA  []record.CAARecord  `json:"CAA,omitempty"`  // CAA records.
+	Mx   []record.MXRecord   `json:"MX,omitempty"`   // MX records.
+	Txt  []record.TXTRecord  `json:"TXT,omitempty"`  // TXT records.
+	Srv  []record.SRVRecord  `json:"SRV,omitempty"`  // SRV records.
 }
 
+// GetData is the result of a successful call to the [getData] method.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 type GetData struct {
-	isUnderControl bool
-	isBegetDNS     bool
-	isSubdomain    bool
-	fqdn           string
-	nsRecords      *NSRecords
-	basicRecords   *BasicRecords
-	cnameRecords   *CNAMERecords
-	typeRecords    TypeRecords
+	isUnderControl bool          // reports whether Beget service the domain.
+	isBegetDNS     bool          // reports whether the domain is located on the Beget DNS servers.
+	isSubdomain    bool          // reports whether the domain is subdomain.
+	fqdn           string        // the domain name passed in the request.
+	nsRecords      *NSRecords    // NS records.
+	basicRecords   *BasicRecords // "A, MX, TXT" records.
+	cnameRecords   *CNAMERecords // CNAME records.
+	typeRecords    TypeRecords   // type of DNS-records for the domain.
 }
 
+// IsUnderControl reports whether Beget service the domain.
 func (gdr *GetData) IsUnderControl() bool {
 	return gdr.isUnderControl
 }
 
+// IsBegetDNS reports whether the domain is located on the Beget DNS servers.
 func (gdr *GetData) IsBegetDNS() bool {
 	return gdr.isBegetDNS
 }
 
+// IsSubdomain reports whether the domain is subdomain.
 func (gdr *GetData) IsSubdomain() bool {
 	return gdr.isSubdomain
 }
 
+// Fqdn returns the domain name passed in the request to [getData] method.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 func (gdr *GetData) Fqdn() string {
 	return gdr.fqdn
 }
 
+// TypeRecords returns type of DNS-records for the domain.
 func (gdr *GetData) TypeRecords() TypeRecords {
 	return gdr.typeRecords
 }
 
+// BasicRecords returns "A, MX, TXT" records if they are provided in the response.
+// Otherwise, it returns nil
 func (gdr *GetData) BasicRecords() *BasicRecords {
 	return gdr.basicRecords
 }
 
+// CNAMERecords returns CNAME records if they are provided in the response.
+// Otherwise, it returns nil
 func (gdr *GetData) CNAMERecords() *CNAMERecords {
 	return gdr.cnameRecords
 }
 
+// NSRecords returns NS records if they are provided in the response.
+// Otherwise, it returns nil
 func (gdr *GetData) NSRecords() *NSRecords {
 	return gdr.nsRecords
 }
@@ -124,6 +158,9 @@ func (gdr *GetData) unmarshalSimpleFields(resultMap map[string]json.RawMessage) 
 	return unmarshalField(setTypeField, resultMap, &gdr.typeRecords)
 }
 
+// UnmarshalJSON is functions for [encoding/json] to unmarshal [getData] response from json format.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 func (gdr *GetData) UnmarshalJSON(data []byte) error {
 	*gdr = GetData{}
 

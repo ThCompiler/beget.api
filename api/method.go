@@ -1,3 +1,11 @@
+// Package api implements API method-specific functionality.
+// Package contains:
+//   - [github.com/ThCompiler/go.beget.api/api/result] package,
+//     that implements structures representing the result of API method responses.
+//   - [github.com/ThCompiler/go.beget.api/api/dns] package,
+//     that implements the functionality of [Dns methods].
+//
+// [Dns methods]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns
 package api
 
 import (
@@ -12,10 +20,12 @@ const (
 )
 
 // BasicMethod is the basis of other api methods.
-// It implements the general core operation from [github.com/ThCompiler/go.beget.api/pkg/beget/core.APIMethod] interface.
+//
+// It implements the general core operation from [github.com/ThCompiler/go.beget.api/core.APIMethod] interface.
 // It implements GetURL and Error methods and general operations of storing error or of creating method information.
 // Other methods embed the basic one and use CallError and CallMethod to build specific information about itself.
-// The [github.com/ThCompiler/go.beget.api/pkg/beget/api/dns.CallGetData] can be used as an example.
+//
+// The [github.com/ThCompiler/go.beget.api/api/dns.CallGetData] can be used as an example.
 type BasicMethod struct {
 	err error
 	uRL *url.URL

@@ -47,10 +47,21 @@
 * Переименованы методы *GetResult* и *MustGetResult* типа *BegetResponse* на *GetAnswer* и *MustGetAnswer*, соответственно.
 * Переработана структура пакетов.
 
+#### Api
+
+* Сделан экспортируемым интерфейс *settableRecords* в пакете **dns**.
+* Изменены тип поля **records** в методе *CallChangeRecords* на *SettableRecords* в пакете **dns**.
+* Удалены ненужные функции *SetRecords*, *SetBasicRecords*, *SetNsRecords*, *SetCNameRecords* в пакете **dns**.
+* Удалены ненужные *Настройки записей* типа в пакете **dns**.
+
 ## Добавлено
 
 ### Библиотека
 
 #### Ядро
+
+* Добавлена документация Golang.
+
+#### Api
 
 * Добавлена документация Golang.

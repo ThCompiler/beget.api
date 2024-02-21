@@ -1,3 +1,6 @@
+// Package build implements builders of [github.com/ThCompiler/go.beget.api/api/dns.BasicRecords],
+// [github.com/ThCompiler/go.beget.api/api/dns.DNSRecords], [github.com/ThCompiler/go.beget.api/api/dns.CNAMERecords]
+// and [github.com/ThCompiler/go.beget.api/api/dns.NSRecords].
 package build
 
 import (
