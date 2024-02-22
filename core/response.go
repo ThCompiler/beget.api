@@ -10,7 +10,7 @@ type Error[Err MethodErrorCode | APIErrorCode] struct {
 	ErrorCode Err    `json:"error_code"`
 }
 
-// Error represents Error as a string
+// Error represents Error as a string.
 func (e *Error[Err]) Error() string {
 	return string(e.ErrorCode) + ": " + e.ErrorText
 }
@@ -24,61 +24,61 @@ type BegetResponse[Result any] struct {
 
 // Get returns the response of the API method call if the general API did not fail,
 // or returns the general API error converted to a Golang error.
-func (a *BegetResponse[Result]) Get() (*Answer[Result], error) {
-	if a.error == nil {
-		return a.answer, nil
+func (br *BegetResponse[Result]) Get() (*Answer[Result], error) {
+	if br.error == nil {
+		return br.answer, nil
 	}
-	return a.answer, a.error
+	return br.answer, br.error
 }
 
 // Status returns the response status of the general API.
-func (a *BegetResponse[Result]) Status() Status {
-	return a.status
+func (br *BegetResponse[Result]) Status() Status {
+	return br.status
 }
 
 // IsError reports whether the general API returns some error.
-func (a *BegetResponse[Result]) IsError() bool {
-	return a.error != nil
+func (br *BegetResponse[Result]) IsError() bool {
+	return br.error != nil
 }
 
 // GetAnswer returns the response of the API method call if the general API did not fail
 // or [ErrAPIReturnError] if the general API failed.
-func (a *BegetResponse[Result]) GetAnswer() (*Answer[Result], error) {
-	if a.IsError() {
+func (br *BegetResponse[Result]) GetAnswer() (*Answer[Result], error) {
+	if br.IsError() {
 		return nil, ErrAPIReturnError
 	}
 
-	return a.answer, nil
+	return br.answer, nil
 }
 
 // GetError returns the response of the API method call if the general API failed
 // or [ErrAPIReturnSuccess] if the general API did not fail.
-func (a *BegetResponse[Result]) GetError() (*Error[APIErrorCode], error) {
-	if !a.IsError() {
+func (br *BegetResponse[Result]) GetError() (*Error[APIErrorCode], error) {
+	if !br.IsError() {
 		return nil, ErrAPIReturnSuccess
 	}
 
-	return a.error, nil
+	return br.error, nil
 }
 
 // MustGetAnswer returns the response of the API method call if the general API did not fail
 // or panics with [ErrAPIReturnError] if the general API failed.
-func (a *BegetResponse[Result]) MustGetAnswer() *Answer[Result] {
-	if a.IsError() {
+func (br *BegetResponse[Result]) MustGetAnswer() *Answer[Result] {
+	if br.IsError() {
 		panic(ErrAPIReturnError)
 	}
 
-	return a.answer
+	return br.answer
 }
 
 // MustGetError returns the response of the API method call if the general API failed
 // or panics with [ErrAPIReturnSuccess] if the general API did not fail.
-func (a *BegetResponse[Result]) MustGetError() *Error[APIErrorCode] {
-	if !a.IsError() {
+func (br *BegetResponse[Result]) MustGetError() *Error[APIErrorCode] {
+	if !br.IsError() {
 		panic(ErrAPIReturnSuccess)
 	}
 
-	return a.error
+	return br.error
 }
 
 // jsonResponse is a temporary structure to parse the general part of Beget.API response from json.
@@ -90,18 +90,18 @@ type jsonResponse[Result any] struct {
 }
 
 // UnmarshalJSON is functions for [encoding/json] to unmarshal response from json format.
-func (a *BegetResponse[Result]) UnmarshalJSON(data []byte) error {
+func (br *BegetResponse[Result]) UnmarshalJSON(data []byte) error {
 	var response jsonResponse[Result]
 	if err := json.Unmarshal(data, &response); err != nil {
 		return err
 	}
 
-	a.status = response.Status
-	a.answer = response.Answer
-	a.error = nil
+	br.status = response.Status
+	br.answer = response.Answer
+	br.error = nil
 
 	if response.ErrorCode != nil {
-		a.error = &Error[APIErrorCode]{
+		br.error = &Error[APIErrorCode]{
 			ErrorCode: *response.ErrorCode,
 			ErrorText: response.ErrorText,
 		}

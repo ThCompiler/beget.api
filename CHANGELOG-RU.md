@@ -9,13 +9,13 @@
 * Добавлены типы ошибок, форматы и статусы (раздел core/info).
 * Добавлена структура описание ответа от сервисом api.
 * Добавлено обобщённое выполнения запросов по api и получение результатов.
-* Добавлен интерфейс ApiMethod описывающий требования к методом api.
+* Добавлен интерфейс `ApiMethod` описывающий требования к методом api.
 
 #### Api
 
 * Добавлен базовый метод описывающий запрос по api.
-* Добавлены методы взаимодействия с DNS: *getData*, *changeRecords*.
-* Реализован создатель записей для запроса на изменение dns записей через метод *changeRecords*.
+* Добавлены методы взаимодействия с DNS: `getData`, `changeRecords`.
+* Реализован создатель записей для запроса на изменение dns записей через метод `changeRecords`.
 
 ### Репозиторий
 
@@ -31,7 +31,7 @@
 
 #### Ядро
 
-* Исправлено возвращение значения ***nil*** для ошибки из метода *Get* у *BegetResponse* и *Answer*.
+* Исправлено возвращение значения ***nil*** для ошибки из метода `Get` у `BegetResponse` и `Answer`.
 
 ### Репозиторий
 
@@ -44,15 +44,25 @@
 
 #### Ядро
 
-* Переименованы методы *GetResult* и *MustGetResult* типа *BegetResponse* на *GetAnswer* и *MustGetAnswer*, соответственно.
+* Переименованы методы `GetResult` и `MustGetResult` типа `BegetResponse` на `GetAnswer` и `MustGetAnswer`, соответственно.
 * Переработана структура пакетов.
 
 #### Api
 
-* Сделан экспортируемым интерфейс *settableRecords* в пакете **dns**.
-* Изменены тип поля **records** в методе *CallChangeRecords* на *SettableRecords* в пакете **dns**.
-* Удалены ненужные функции *SetRecords*, *SetBasicRecords*, *SetNsRecords*, *SetCNameRecords* в пакете **dns**.
-* Удалены ненужные *Настройки записей* типа в пакете **dns**.
+* Сделан экспортируемым интерфейс `settableRecords` в пакете **api/dns**.
+* Изменены тип поля **records** в методе `CallChangeRecords` на `SettableRecords` в пакете **api/dns**.
+* Удалены ненужные функции `SetRecords`, `SetBasicRecords`, `SetNsRecords`, `SetCNameRecords` в пакете **api/dns**.
+* Удалены ненужный тип `SettingRecords` в пакете **api/dns**.
+* Переименован метод `NewARecordCreator` из пакета **api/dns/build** на `NewARecords`.
+* Переименован метод `NewAAAARecordCreator` из пакета **api/dns/build** на `NewAAAARecords`.
+* Переименован метод `NewMxRecordCreator` из пакета **api/dns/build** на `NewMxRecords`.
+* Переименован метод `NewTxtRecordCreator` из пакета **api/dns/build** на `NewTxtRecords`.
+* Переименован метод `NewNsRecordCreator` из пакета **api/dns/build** на `NewNsRecords`.
+* Переименован метод `NewCNameRecordCreator` из пакета **api/dns/build** на `NewCNameRecords`.
+* Переименован метод `NewDNSIPRecordCreator` из пакета **api/dns/build** на `NewDNSIPRecords`.
+* Переименован метод `NewDNSRecordCreator` из пакета **api/dns/build** на `NewDNSRecords`.
+* Изменено встраивание типа `DNSRecordsCreator` в `BasicRecordsCreator`, `NsRecordsCreator`, `CNameRecordsCreator`
+  на хранение поля **dnsRecords** с типом `DNSRecordsCreator` в пакетe **api/dns/build**.
 
 ## Добавлено
 

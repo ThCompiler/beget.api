@@ -45,8 +45,9 @@ type SettableRecords interface {
 //
 // # Noticed
 //
-// If the domain contains SRV records, it is not possible to change them by [changeRecords] method,
-// and if you attempt to change other records for this domain by [changeRecords] method, SRV records will be deleted.
+// If the domain contains SRV or CAA records, it is not possible to change them by [changeRecords] method.
+// If you attempt to change other records for this domain by [changeRecords] method,
+// SRV and CAA records will be deleted.
 //
 // [changeRecords]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#changerecords
 func CallChangeRecords(domainName string, records SettableRecords) core.APIMethod[result.BoolResult] {

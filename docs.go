@@ -9,6 +9,10 @@
 //   - [github.com/ThCompiler/go.beget.api/api/dns] package,
 //     that implements the functionality of [Dns methods].
 //
+// If you find inaccuracies or errors in the documentation,
+// please report it in the issue in the [go.beget.api] repository.
+//
+// [go.beget.api]: https://github.com/ThCompiler/go.beget.api
 // [Beget]: https://beget.com/ru/kb/api/beget-api.
 // [Dns methods]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns
 package beget

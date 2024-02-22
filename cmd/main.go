@@ -20,7 +20,7 @@ func main() {
 		dns.CallChangeRecords("tmp.thecompiler.pw",
 			build.NewBasicRecordsCreator().
 				AddARecords(
-					build.NewARecordCreator().
+					build.NewARecords().
 						AddRecord(10, "8.8.8.8"),
 				).Create(),
 		),
