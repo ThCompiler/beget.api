@@ -1,3 +1,8 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/ThCompiler/go.beget.api)](https://goreportcard.com/report/github.com/ThCompiler/go.beget.api)
+[![Go Reference](https://pkg.go.dev/badge/github.com/ThCompiler/go.beget.api.svg)](https://pkg.go.dev/github.com/ThCompiler/go.beget.api)
+
+[![en](https://img.shields.io/badge/lang-en-red.svg)](./README.md)
+
 # Go.beget.api
 
 Простая библиотека реализующая открытое API сервиса [beget.com](https://beget.com/) для выполнения функций панели управления.
@@ -7,7 +12,7 @@
 Для работы с библиотекой необходима версия golang: ```1.19```. Сама установка может быть произведена с помощью команды:
 
 ```cmd
-go get github.com/ThCompiler/github.com/ThCompiler/go.beget.api
+go get github.com/ThCompiler/go.beget.api
 ```
 
 ### Поддерживаемые Beget.API функции
@@ -25,7 +30,7 @@ go get github.com/ThCompiler/github.com/ThCompiler/go.beget.api
 
 ### Документация
 
-В [документации](https://thcompiler.github.io/beget.api/) представлено описание функций библиотеки. А в репозитории 
+В [документации](https://pkg.go.dev/github.com/ThCompiler/go.beget.api) представлено описание функций библиотеки. А в репозитории 
 [update_hostname](https://github.com/ThCompiler/update_hostname) представлен пример использования 
 библиотеки для обновления данные ip для hostname на основе текущего ip системы.
 

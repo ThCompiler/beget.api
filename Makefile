@@ -1,6 +1,6 @@
 BIN_DIR=bin
 BIN=beget
-PATH_TO_ENTER_POINT=github.com/ThCompiler/go.beget.api/src
+PATH_TO_ENTER_POINT=github.com/ThCompiler/go.beget.api/cmd
 
 .PHONY: local-build
 local-build: bin-dir
