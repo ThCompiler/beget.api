@@ -32,7 +32,7 @@ Detailed information about the API is provided on the **Beget`s** [documentation
 
 ### Documentation
 
-The [documentation]https://pkg.go.dev/github.com/ThCompiler/go.beget.api) provides a description of the library's functions.
+The [documentation](https://pkg.go.dev/github.com/ThCompiler/go.beget.api) provides a description of the library's functions.
 And the [update_hostname](https://github.com/ThCompiler/update_hostname) repository provides an example of usage libraries
 for updating ip for hostname based on the current ip of the server.
 
