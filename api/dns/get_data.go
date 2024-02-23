@@ -1,8 +1,9 @@
 package dns
 
 import (
-	"github.com/ThCompiler/go.beget.api/api/result"
 	"net/http"
+
+	"github.com/ThCompiler/go.beget.api/api/result"
 
 	"github.com/ThCompiler/go.beget.api/api"
 	"github.com/ThCompiler/go.beget.api/core"

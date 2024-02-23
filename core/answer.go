@@ -2,8 +2,9 @@ package core
 
 import (
 	"encoding/json"
-	"github.com/ThCompiler/go.beget.api/pkg/slices"
 	"strings"
+
+	"github.com/ThCompiler/go.beget.api/pkg/slices"
 )
 
 // MethodErrors is the type to represent an API method call method's errors.
@@ -29,6 +30,7 @@ func (a *Answer[Result]) Get() (*Result, error) {
 	if a.errors == nil {
 		return a.result, nil
 	}
+
 	return a.result, a.errors
 }
 

@@ -28,6 +28,7 @@ func (br *BegetResponse[Result]) Get() (*Answer[Result], error) {
 	if br.error == nil {
 		return br.answer, nil
 	}
+
 	return br.answer, br.error
 }
 

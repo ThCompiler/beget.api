@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/ThCompiler/go.beget.api/api/dns"
 	"github.com/ThCompiler/go.beget.api/api/dns/build"
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/core"
-	"log"
 )
 
 func main() {

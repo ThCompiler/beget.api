@@ -12,8 +12,12 @@ var (
 
 // Errors of working with response of Beget.API.
 var (
-	ErrAPIMethodReturnError   = errors.New("method was executed without a success result, it returns error")           // "method was executed without a success result, it returns error"
-	ErrAPIMethodReturnSuccess = errors.New("method was executed with a success result, it does not return error")      // "method was executed with a success result, it does not return error"
-	ErrAPIReturnError         = errors.New("general API was executed without a success result, it returns error")      // "general API was executed without a success result, it returns error"
-	ErrAPIReturnSuccess       = errors.New("general API was executed with a success result, it does not return error") // "general API was executed with a success result, it does not return error"
+	// "method was executed without a success result, it returns error"
+	ErrAPIMethodReturnError = errors.New("method was executed without a success result, it returns error")
+	// "method was executed with a success result, it does not return error"
+	ErrAPIMethodReturnSuccess = errors.New("method was executed with a success result, it does not return error")
+	// "general API was executed without a success result, it returns error"
+	ErrAPIReturnError = errors.New("general API was executed without a success result, it returns error")
+	// "general API was executed with a success result, it does not return error"
+	ErrAPIReturnSuccess = errors.New("general API was executed with a success result, it does not return error")
 )

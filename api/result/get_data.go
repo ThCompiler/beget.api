@@ -2,6 +2,7 @@ package result
 
 import (
 	"encoding/json"
+
 	"github.com/ThCompiler/go.beget.api/api/dns/record"
 	"github.com/pkg/errors"
 )

@@ -2,11 +2,12 @@ package dns
 
 import (
 	"encoding/json"
+	"net/http"
+	"reflect"
+
 	"github.com/ThCompiler/go.beget.api/api"
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/core"
-	"net/http"
-	"reflect"
 
 	"github.com/pkg/errors"
 )
@@ -125,7 +126,7 @@ type ChangedRecord struct {
 // DNSRecords represents a changed DNS-records.
 // If the DNS servers are not proprietary (i.e. they are not located on one of the subdomains of the main domain),
 // then the DNS_IP section can be omitted.
-type DNSRecords struct {
+type DNSRecords struct { // nolint: revive
 	DNS   []ChangedRecord `json:"DNS,omitempty"`    // DNS records.
 	DNSIP []ChangedRecord `json:"DNS_IP,omitempty"` // DNS_IP records.
 }

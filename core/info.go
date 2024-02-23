@@ -28,7 +28,9 @@ const (
 type MethodErrorCode string
 
 const (
-	InvalidData  = MethodErrorCode("INVALID_DATA")  // validation error of the transmitted data.
-	LimitError   = MethodErrorCode("LIMIT_ERROR")   // failure to complete due to reaching any limit (for example, the limit of sites or the limit of API requests is exceeded (no more than 60 requests per minute for the user))
+	InvalidData = MethodErrorCode("INVALID_DATA") // validation error of the transmitted data.
+	// failure to complete due to reaching any limit (for example, the limit of sites or the limit of API
+	// requests is exceeded (no more than 60 requests per minute for the user))
+	LimitError   = MethodErrorCode("LIMIT_ERROR")
 	MethodFailed = MethodErrorCode("METHOD_FAILED") // internal error when executing the method.
 )

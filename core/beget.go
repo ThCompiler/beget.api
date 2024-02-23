@@ -31,8 +31,10 @@ type Client struct {
 //
 // For example, with method [github.com/ThCompiler/go.beget.api/api/dns.CallGetData] ([GetData]):
 //
-// client := Client{ login: "user", password: "password" }
-// req, _ := PrepareRequest[github.com/ThCompiler/go.beget.api/api/result.GetData](client, dns.CallGetData("some.domain.com"))
+//	 import "github.com/ThCompiler/go.beget.api/api/result"
+//
+//		client := Client{ login: "user", password: "password" }
+//		req, _ := PrepareRequest[result.GetData](client, dns.CallGetData("some.domain.com"))
 //
 // [GetData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 func PrepareRequest[Result any](c Client, method APIMethod[Result]) (*BegetRequest[Result], error) {

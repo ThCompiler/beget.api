@@ -13,7 +13,7 @@ run:
   # Default: [].
   skip-dirs:
     - version
-    - src
+    - cmd
     - workflow
   modules-download-mode: readonly
   allow-parallel-runners: true
@@ -81,6 +81,8 @@ linters-settings:
         arguments: [ 120 ]
       - name: max-public-structs
         disabled: true
+      - name: comment-spacings
+        disabled: true
       - name: errorf
         disabled: true
   gci:
@@ -113,6 +115,7 @@ linters-settings:
       - performance
       - style
     disabled-checks:
+      - whyNoLint
       - dupImport
       - unnecessaryBlock
   gofumpt:

@@ -45,14 +45,18 @@ package core
 
 import "net/url"
 
-// MethodName is typed of name of Beget.Api method
+// MethodName is typed of name of Beget.Api method.
 type MethodName string
 
 // APIMethod is an interface that describes the methods
-// for the library core to work with the methods of the Beget.Api
+// for the library core to work with the methods of the Beget.Api.
 type APIMethod[Result any] interface {
-	GetHTTPMethod() string // Returns name of http method (POST, GET, etc.)
-	GetURL() *url.URL      // Returns suffix url of api method. The url is expected to contain the required query parameters
-	Error() error          // Returns any errors when generating information about the request to the method
-	GetName() MethodName   // Returns name of method (to use it's in an error message)
+	// GetHTTPMethod returns name of http method (POST, GET, etc.).
+	GetHTTPMethod() string
+	// GetURL returns suffix url of api method. The url is expected to contain the required query parameters.
+	GetURL() *url.URL
+	// Error returns any errors when generating information about the request to the method.
+	Error() error
+	// GetName returns name of method (to use it's in an error message).
+	GetName() MethodName
 }

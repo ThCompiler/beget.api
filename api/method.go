@@ -10,8 +10,9 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/ThCompiler/go.beget.api/core"
 	"net/url"
+
+	"github.com/ThCompiler/go.beget.api/core"
 )
 
 const (

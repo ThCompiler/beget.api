@@ -7,7 +7,8 @@ type CAATag string
 
 // Values of CAATag
 const (
-	Issue     = CAATag("issue")     // tag sets a policy for domain single-name and TLS/SSL wildcard certificate issuance
+	// tag sets a policy for domain single-name and TLS/SSL wildcard certificate issuance
+	Issue     = CAATag("issue")
 	IssueWild = CAATag("issuewild") // tag sets a policy for domain wildcard certificate issuance
 	IoDef     = CAATag("iodef")     // tag sets a policy for S/MIME certificate issuance
 )
