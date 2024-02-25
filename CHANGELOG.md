@@ -76,3 +76,13 @@
 #### Api
 
 * Added golang documentation.
+
+## 0.1.1
+
+## Changed
+
+### Library
+
+#### Api
+[//]: # (TODO: синхронизировать с русской версией)
+* Add `url.Values` to parameters of method `CallMethod` of `BasicMethod` in **api** package.  

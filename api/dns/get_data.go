@@ -19,7 +19,7 @@ type getData struct {
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 func CallGetData(domainName string) core.APIMethod[result.GetData] {
 	return &getData{
-		BasicMethod: *api.CallMethod(GetDataMethodPath, &getDataRequest{Fqdn: domainName}),
+		BasicMethod: *api.CallMethod(GetDataMethodPath, &getDataRequest{Fqdn: domainName}, nil),
 	}
 }
 

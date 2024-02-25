@@ -55,9 +55,17 @@ func CallError(err error) *BasicMethod {
 // It's expected that requestBody can be marshaled.
 // If requestBody isn't nil, it will be marshaled and added to query params.
 // Also, a field describing the type of input data will also be added with the "json" value.
-func CallMethod(methodPath string, requestBody any) *BasicMethod {
+func CallMethod(methodPath string, requestBody any, urlVales url.Values) *BasicMethod {
 	uRL := &url.URL{}
 	uRL.Path = methodPath
+
+	vals := uRL.Query()
+	for key, values := range urlVales {
+		for _, val := range values {
+			vals.Add(key, val)
+		}
+	}
+	uRL.RawQuery = vals.Encode()
 
 	if requestBody == nil {
 		return &BasicMethod{
@@ -71,7 +79,7 @@ func CallMethod(methodPath string, requestBody any) *BasicMethod {
 		return CallError(err)
 	}
 
-	vals := uRL.Query()
+	vals = uRL.Query()
 	vals.Add(inputFormatField, string(core.JSON))
 	vals.Add(inputDataField, string(request))
 	uRL.RawQuery = vals.Encode()
