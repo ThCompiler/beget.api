@@ -84,5 +84,27 @@
 ### Library
 
 #### Api
-[//]: # (TODO: синхронизировать с русской версией)
-* Add `url.Values` to parameters of method `CallMethod` of `BasicMethod` in **api** package.  
+
+* Added getting the `url.Values` as a parameter of the `callMethod` method of the `BasicMethod` structure 
+  in the **api** package. And, accordingly, it is now possible to add query parameters to the API method information.
+
+## Added
+
+### Library
+
+#### Core
+
+* Added method `PrepareRequestWithClient` in the **core** package to specify user\`s `http.Client` for requests to API.
+* Added test mod for working api system.
+
+#### Api
+
+* Added test package to **api** package with tests of API methods.
+* Added methods of [account management](https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom) in the
+  **api/user** package.
+* Added methods of [backup management](https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami) in the
+  **api/backup** package.
+
+### Pkg
+
+* Added a function for cloning the `map`.

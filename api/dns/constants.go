@@ -19,8 +19,9 @@ package dns
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 // [changeRecords]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#changerecords
 const (
-	GetDataMethodName       = "GetData"
-	GetDataMethodPath       = "dns/getData"
+	GetDataMethodName = "GetData"
+	GetDataMethodPath = "dns/getData"
+
 	ChangeRecordsMethodName = "ChangeRecords"
 	ChangeRecordsMethodPath = "dns/changeRecords"
 )

@@ -6,7 +6,6 @@ import (
 	"github.com/ThCompiler/go.beget.api/core"
 	"net/http"
 	"net/url"
-	"strconv"
 )
 
 const (
@@ -14,11 +13,11 @@ const (
 	fTPLoginField = "ftplogin"
 )
 
-type Status int64
+type Status rune
 
 const (
-	ENABLE  Status = 1
-	DISABLE Status = 0
+	ENABLE  Status = '1'
+	DISABLE Status = '0'
 )
 
 type toggleSSH struct {
@@ -29,13 +28,13 @@ type toggleSSH struct {
 // The function is waiting for the domain name for which it is necessary to get data from the DNS server.
 //
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
-func CallToggleSSH(status Status) core.APIMethod[result.BoolResult] {
+func CallToggleSSH(status Status) core.APIMethod[result.SSHToggle] {
 	return &toggleSSH{
 		BasicMethod: *api.CallMethod(
 			ToggleSSHMethodPath,
 			nil,
 			url.Values{
-				statusField: []string{strconv.FormatInt(int64(status), 10)},
+				statusField: []string{string(status)},
 			},
 		),
 	}
@@ -45,13 +44,13 @@ func CallToggleSSH(status Status) core.APIMethod[result.BoolResult] {
 // The function is waiting for the domain name for which it is necessary to get data from the DNS server.
 //
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
-func CallToggleSSHFTP(status Status, FTPLogin string) core.APIMethod[result.GetData] {
+func CallToggleSSHFTP(status Status, FTPLogin string) core.APIMethod[result.SSHToggle] {
 	return &toggleSSH{
 		BasicMethod: *api.CallMethod(
 			ToggleSSHMethodPath,
 			nil,
 			url.Values{
-				statusField:   []string{strconv.FormatInt(int64(status), 10)},
+				statusField:   []string{string(status)},
 				fTPLoginField: []string{FTPLogin},
 			},
 		),
