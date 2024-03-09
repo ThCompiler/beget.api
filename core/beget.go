@@ -38,7 +38,9 @@ type Client struct {
 //		req, _ := PrepareRequest[result.GetData](client, dns.CallGetData("some.domain.com"))
 //
 // [GetData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
-func PrepareRequestWithClient[Result any](c Client, method APIMethod[Result], client *http.Client) (*BegetRequest[Result], error) {
+func PrepareRequestWithClient[Result any](
+	c Client, method APIMethod[Result], client *http.Client,
+) (*BegetRequest[Result], error) {
 	if method.Error() != nil {
 		return nil, errors.Wrap(method.Error(), ErrFromAPIMethod.Error())
 	}

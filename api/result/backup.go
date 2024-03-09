@@ -1,11 +1,17 @@
 package result
 
-import "github.com/ThCompiler/go.beget.api/internal/time"
+import (
+	"github.com/pkg/errors"
+
+	"github.com/ThCompiler/go.beget.api/internal/time"
+)
+
+var ErrUnknownValueForFileType = errors.New("unknown value fot type FileType")
 
 type ID uint64
 
 type FileBackup struct {
-	BackupId ID             `json:"backup_id"`
+	BackupID ID             `json:"backup_id"`
 	Date     time.BegetTime `json:"date"`
 }
 
@@ -15,12 +21,20 @@ type FileBackupList []FileBackup
 
 type MYSQLBackupList []MYSQLBackup
 
-type FileType int64
+type FileType bool
 
-const (
-	File      FileType = 0
-	Directory FileType = 1
-)
+func (ft *FileType) UnmarshalJSON(data []byte) error {
+	switch string(data) {
+	case "true", "1":
+		*ft = true
+	case "false", "0", "null", "":
+		*ft = false
+	default:
+		return errors.Wrapf(ErrUnknownValueForFileType, "with data %s", data)
+	}
+
+	return nil
+}
 
 type FileRecord struct {
 	Name         string         `json:"name"`
@@ -54,12 +68,12 @@ const (
 type Status string
 
 const (
-	Success Status = "success"
-	Error   Status = "error"
+	SUCCESS Status = "success"
+	ERROR   Status = "error"
 )
 
 type LogRecord struct {
-	Id         ID             `json:"id"`
+	ID         ID             `json:"id"`
 	Operation  Operation      `json:"operation"`
 	Type       OperationType  `json:"type"`
 	DateCreate time.BegetTime `json:"date_create"`

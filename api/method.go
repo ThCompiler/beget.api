@@ -60,13 +60,15 @@ func CallMethod(methodPath string, requestBody any, urlVales url.Values) *BasicM
 	uRL.Path = methodPath
 
 	{
-		vals := uRL.Query()
+		vales := uRL.Query()
+
 		for key, values := range urlVales {
 			for _, val := range values {
-				vals.Add(key, val)
+				vales.Add(key, val)
 			}
 		}
-		uRL.RawQuery = vals.Encode()
+
+		uRL.RawQuery = vales.Encode()
 	}
 
 	if requestBody == nil {
@@ -81,10 +83,10 @@ func CallMethod(methodPath string, requestBody any, urlVales url.Values) *BasicM
 		return CallError(err)
 	}
 
-	vals := uRL.Query()
-	vals.Add(inputFormatField, string(core.JSON))
-	vals.Add(inputDataField, string(request))
-	uRL.RawQuery = vals.Encode()
+	values := uRL.Query()
+	values.Add(inputFormatField, string(core.JSON))
+	values.Add(inputDataField, string(request))
+	uRL.RawQuery = values.Encode()
 
 	return &BasicMethod{
 		uRL: uRL,

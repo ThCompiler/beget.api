@@ -3,6 +3,11 @@ package test
 import (
 	"bytes"
 	"encoding/json"
+	"net/url"
+	"reflect"
+	"testing"
+	"text/template"
+
 	"github.com/ThCompiler/go.beget.api/api/dns"
 	"github.com/ThCompiler/go.beget.api/api/dns/general"
 	"github.com/ThCompiler/go.beget.api/api/dns/record"
@@ -10,10 +15,6 @@ import (
 	"github.com/ThCompiler/go.beget.api/core"
 	"github.com/ThCompiler/ts"
 	"github.com/stretchr/testify/require"
-	"net/url"
-	"reflect"
-	"testing"
-	"text/template"
 )
 
 type GetData struct {
@@ -27,7 +28,9 @@ type GetData struct {
 	TypeRecords    result.TypeRecords   // type of DNS-records for the domain.
 }
 
-func createByTemplate(t *testing.T, templateName string, templateData string, data any) string {
+func createByTemplate(t *testing.T, templateName, templateData string, data any) string {
+	t.Helper()
+
 	var out string
 	buf := bytes.NewBufferString(out)
 
@@ -64,7 +67,7 @@ func (ap *APISuite) TestGetData() {
 				var req getDataRequest
 				require.NoError(ap.T(), json.Unmarshal([]byte(request), &req))
 
-				require.Equal(ap.T(), getDataRequest{Fqdn: domainName}, req)
+				require.EqualValues(ap.T(), getDataRequest{Fqdn: domainName}, req)
 			})
 
 			req, err := core.PrepareRequest[result.GetData](
@@ -141,7 +144,7 @@ func (ap *APISuite) TestChangeRecords() {
 				}
 				require.NoError(ap.T(), json.Unmarshal([]byte(request), &req))
 
-				require.Equal(ap.T(), changeRecordsRequest{Fqdn: domainName, Records: records}, req)
+				require.EqualValues(ap.T(), changeRecordsRequest{Fqdn: domainName, Records: records}, req)
 			})
 
 			req, err := core.PrepareRequest[result.BoolResult](
@@ -191,16 +194,24 @@ var getDataResultBasic = GetData{
 			{TTLRecord: record.TTLRecord{TTL: 300}, ARecord: general.ARecord{Address: "195.19.34.6"}},
 		},
 		AAAA: []record.AAAARecord{
-			{TTLRecord: record.TTLRecord{TTL: 300},
-				AAAARecord: general.AAAARecord{Address: "2001:0db8:11a3:09d7:1f34:8a2e:07a0:765d"}},
-			{TTLRecord: record.TTLRecord{TTL: 300},
-				AAAARecord: general.AAAARecord{Address: "2001:0db8:11a3:09d7:1f34:8a2e:07a0:765e"}},
+			{
+				TTLRecord:  record.TTLRecord{TTL: 300},
+				AAAARecord: general.AAAARecord{Address: "2001:0db8:11a3:09d7:1f34:8a2e:07a0:765d"},
+			},
+			{
+				TTLRecord:  record.TTLRecord{TTL: 300},
+				AAAARecord: general.AAAARecord{Address: "2001:0db8:11a3:09d7:1f34:8a2e:07a0:765e"},
+			},
 		},
 		CAA: []record.CAARecord{
-			{TTLRecord: record.TTLRecord{TTL: 300},
-				CAARecord: general.CAARecord{Flags: 1, Tag: general.Issue, Value: "uy.ru"}},
-			{TTLRecord: record.TTLRecord{TTL: 300},
-				CAARecord: general.CAARecord{Flags: 1, Tag: general.Issue, Value: "uy2.ru"}},
+			{
+				TTLRecord: record.TTLRecord{TTL: 300},
+				CAARecord: general.CAARecord{Flags: 1, Tag: general.Issue, Value: "uy.ru"},
+			},
+			{
+				TTLRecord: record.TTLRecord{TTL: 300},
+				CAARecord: general.CAARecord{Flags: 1, Tag: general.Issue, Value: "uy2.ru"},
+			},
 		},
 		Mx: []record.MXRecord{
 			{TTLRecord: record.TTLRecord{TTL: 300}, MXRecord: general.MXRecord{Preference: 10, Exchange: "mail.ru"}},
@@ -211,10 +222,14 @@ var getDataResultBasic = GetData{
 			{TTLRecord: record.TTLRecord{TTL: 300}, TXTRecord: general.TXTRecord{TxtData: "hello2"}},
 		},
 		Srv: []record.SRVRecord{
-			{TTLRecord: record.TTLRecord{TTL: 300},
-				SRVRecord: general.SRVRecord{Priority: 1, Weight: 1, Port: 22, Target: "domain.ru"}},
-			{TTLRecord: record.TTLRecord{TTL: 300},
-				SRVRecord: general.SRVRecord{Priority: 2, Weight: 1, Port: 34, Target: "domain2.ru"}},
+			{
+				TTLRecord: record.TTLRecord{TTL: 300},
+				SRVRecord: general.SRVRecord{Priority: 1, Weight: 1, Port: 22, Target: "domain.ru"},
+			},
+			{
+				TTLRecord: record.TTLRecord{TTL: 300},
+				SRVRecord: general.SRVRecord{Priority: 2, Weight: 1, Port: 34, Target: "domain2.ru"},
+			},
 		},
 		DNSRecords: result.DNSRecords{
 			DNS: []record.DNSRecord{

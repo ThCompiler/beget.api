@@ -1,11 +1,12 @@
 package user
 
 import (
+	"net/http"
+	"net/url"
+
 	"github.com/ThCompiler/go.beget.api/api"
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/core"
-	"net/http"
-	"net/url"
 )
 
 const (
@@ -44,14 +45,14 @@ func CallToggleSSH(status Status) core.APIMethod[result.SSHToggle] {
 // The function is waiting for the domain name for which it is necessary to get data from the DNS server.
 //
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
-func CallToggleSSHFTP(status Status, FTPLogin string) core.APIMethod[result.SSHToggle] {
+func CallToggleSSHFTP(status Status, fTPLogin string) core.APIMethod[result.SSHToggle] {
 	return &toggleSSH{
 		BasicMethod: *api.CallMethod(
 			ToggleSSHMethodPath,
 			nil,
 			url.Values{
 				statusField:   []string{string(status)},
-				fTPLoginField: []string{FTPLogin},
+				fTPLoginField: []string{fTPLogin},
 			},
 		),
 	}

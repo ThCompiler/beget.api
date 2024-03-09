@@ -18,8 +18,12 @@ type BegetRequest[Result any] struct {
 // NewBegetRequest creates a new [BegetRequest].
 func NewBegetRequest[Result any](req *http.Request, client *http.Client) *BegetRequest[Result] {
 	if client == nil {
-		client = http.DefaultClient
+		return &BegetRequest[Result]{
+			req:    req,
+			client: http.DefaultClient,
+		}
 	}
+
 	return &BegetRequest[Result]{
 		req:    req,
 		client: client,

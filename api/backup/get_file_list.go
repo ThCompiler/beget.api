@@ -1,10 +1,11 @@
 package backup
 
 import (
+	"net/http"
+
 	"github.com/ThCompiler/go.beget.api/api"
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/core"
-	"net/http"
 )
 
 type getFileList struct {
@@ -15,9 +16,9 @@ type getFileList struct {
 // The function is waiting for the domain name for which it is necessary to get data from the DNS server.
 //
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
-func CallGetFileList(backupId result.ID, path string) core.APIMethod[result.FileList] {
+func CallGetFileList(backupID *result.ID, path string) core.APIMethod[result.FileList] {
 	return &getFileList{
-		BasicMethod: *api.CallMethod(GetFileListMethodPath, &getFileListRequest{BackupId: backupId, Path: path}, nil),
+		BasicMethod: *api.CallMethod(GetFileListMethodPath, &getFileListRequest{BackupID: backupID, Path: path}, nil),
 	}
 }
 
@@ -36,6 +37,6 @@ func (*getFileList) GetName() core.MethodName {
 }
 
 type getFileListRequest struct {
-	BackupId result.ID `json:"backup_id"`
-	Path     string    `json:"path"`
+	BackupID *result.ID `json:"backup_id,omitempty"`
+	Path     string     `json:"path"`
 }

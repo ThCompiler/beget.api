@@ -1,11 +1,12 @@
 package test
 
 import (
+	"net/url"
+
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/api/user"
 	"github.com/ThCompiler/go.beget.api/core"
 	"github.com/stretchr/testify/require"
-	"net/url"
 )
 
 func (ap *APISuite) TestGetAccountInfo() {
@@ -38,7 +39,7 @@ func (ap *APISuite) TestGetAccountInfo() {
 		ServerPythonVersion: "3.10.12",
 		ServerPhpVersion:    "8.2.13",
 		ServerName:          "burut.beget.com",
-		ServerCpuName:       "62 *  AMD EPYC 7763 64-Core Processor",
+		ServerCPUName:       "62 *  AMD EPYC 7763 64-Core Processor",
 		ServerMemory:        772905,
 		ServerMemoryCurrent: 30460,
 		ServerLoadAverage:   20.920000076294,

@@ -1,10 +1,11 @@
 package backup
 
 import (
+	"net/http"
+
 	"github.com/ThCompiler/go.beget.api/api"
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/core"
-	"net/http"
 )
 
 type getMysqlList struct {
@@ -15,9 +16,9 @@ type getMysqlList struct {
 // The function is waiting for the domain name for which it is necessary to get data from the DNS server.
 //
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
-func CallGetMysqlList(backupId result.ID) core.APIMethod[result.MYSQLList] {
+func CallGetMysqlList(backupID *result.ID) core.APIMethod[result.MYSQLList] {
 	return &getMysqlList{
-		BasicMethod: *api.CallMethod(GetMysqlListMethodPath, &getMysqlListRequest{BackupId: backupId}, nil),
+		BasicMethod: *api.CallMethod(GetMysqlListMethodPath, &getMysqlListRequest{BackupID: backupID}, nil),
 	}
 }
 
@@ -36,5 +37,5 @@ func (*getMysqlList) GetName() core.MethodName {
 }
 
 type getMysqlListRequest struct {
-	BackupId result.ID `json:"backup_id"`
+	BackupID *result.ID `json:"backup_id,omitempty"`
 }

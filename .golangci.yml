@@ -85,6 +85,8 @@ linters-settings:
         disabled: true
       - name: errorf
         disabled: true
+      - name: var-naming
+        disabled: true
   gci:
     local-prefixes: github.com/ThCompiler/go.beget.api
   dupl:

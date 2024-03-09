@@ -1,10 +1,11 @@
 package user
 
 import (
+	"net/http"
+
 	"github.com/ThCompiler/go.beget.api/api"
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/core"
-	"net/http"
 )
 
 type getAccountInfo struct {

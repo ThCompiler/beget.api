@@ -12,5 +12,6 @@ func Clone[M ~map[K]V, K comparable, V any](m M) M {
 	for k, v := range m {
 		dst[k] = v
 	}
+
 	return dst
 }

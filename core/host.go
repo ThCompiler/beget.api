@@ -18,7 +18,7 @@ const (
 	Prod
 )
 
-var mode Mode = Prod
+var mode = Prod
 
 func SetMode(md Mode) {
 	mode = md

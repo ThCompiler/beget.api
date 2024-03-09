@@ -29,7 +29,7 @@ type UserInfo struct {
 	ServerPhpVersion    string  `json:"server_php_version"`
 	ServerPythonVersion string  `json:"server_python_version"`
 	ServerName          string  `json:"server_name"`
-	ServerCpuName       string  `json:"server_cpu_name"`
+	ServerCPUName       string  `json:"server_cpu_name"`
 	ServerMemory        uint64  `json:"server_memory"`
 	ServerMemoryCurrent uint64  `json:"server_memorycurrent"`
 	ServerLoadAverage   float64 `json:"server_loadaverage"`

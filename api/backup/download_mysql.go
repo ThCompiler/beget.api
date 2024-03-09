@@ -1,10 +1,11 @@
 package backup
 
 import (
+	"net/http"
+
 	"github.com/ThCompiler/go.beget.api/api"
 	"github.com/ThCompiler/go.beget.api/api/result"
 	"github.com/ThCompiler/go.beget.api/core"
-	"net/http"
 )
 
 type downloadMysql struct {
@@ -15,11 +16,11 @@ type downloadMysql struct {
 // The function is waiting for the domain name for which it is necessary to get data from the DNS server.
 //
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
-func CallDownloadMysql(backupId result.ID, bases []result.DatabaseName) core.APIMethod[result.BoolResult] {
+func CallDownloadMysql(backupID *result.ID, bases []result.DatabaseName) core.APIMethod[result.BoolResult] {
 	return &downloadMysql{
 		BasicMethod: *api.CallMethod(
 			DownloadMysqlMethodPath,
-			&downloadMysqlRequest{BackupId: backupId, Bases: bases},
+			&downloadMysqlRequest{BackupID: backupID, Bases: bases},
 			nil,
 		),
 	}
@@ -40,6 +41,6 @@ func (*downloadMysql) GetName() core.MethodName {
 }
 
 type downloadMysqlRequest struct {
-	BackupId result.ID             `json:"backup_id"`
+	BackupID *result.ID            `json:"backup_id,omitempty"`
 	Bases    []result.DatabaseName `json:"bases"`
 }

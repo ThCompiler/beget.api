@@ -1,10 +1,11 @@
 package test
 
 import (
+	"testing"
+
 	"github.com/ThCompiler/go.beget.api/core"
 	"github.com/ThCompiler/ts"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 type APISuite struct {
