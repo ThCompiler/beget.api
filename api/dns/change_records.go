@@ -60,7 +60,7 @@ func CallChangeRecords(domainName string, records SettableRecords) core.APIMetho
 	}
 
 	return &changeRecords{
-		BasicMethod: *api.CallMethod(ChangeRecordsMethodPath, &changeRequest{Fqdn: domainName, Records: request}),
+		BasicMethod: *api.CallMethod(ChangeRecordsMethodPath, &changeRequest{Fqdn: domainName, Records: request}, nil),
 	}
 }
 

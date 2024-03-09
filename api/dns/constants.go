@@ -1,6 +1,6 @@
 // Package dns implements the functionality of [Dns methods].
 // Package implements [getData] and [changeRecords] methods.
-// To create the appropriate methods, you must call either [CallGetData] or [CallChangeRecords].
+// To create the appropriate methods, you need to call either [CallGetData] or [CallChangeRecords].
 // Also, package contains:
 //   - [github.com/ThCompiler/go.beget.api/api/dns/record] package,
 //     that implements structures representing records from [getData] response.
@@ -19,8 +19,9 @@ package dns
 // [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 // [changeRecords]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#changerecords
 const (
-	GetDataMethodName       = "GetData"
-	GetDataMethodPath       = "dns/getData"
+	GetDataMethodName = "GetData"
+	GetDataMethodPath = "dns/getData"
+
 	ChangeRecordsMethodName = "ChangeRecords"
 	ChangeRecordsMethodPath = "dns/changeRecords"
 )
