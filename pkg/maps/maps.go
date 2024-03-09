@@ -1,3 +1,4 @@
+// Package maps implements some functionality of the standard [maps] package in go 1.21.
 package maps
 
 // Clone returns a copy of m.  This is a shallow clone:

@@ -12,26 +12,28 @@ type getFileList struct {
 	api.BasicMethod
 }
 
-// CallGetFileList is a creation function that returns a [core.APIMethod] corresponding to the method [getData].
-// The function is waiting for the domain name for which it is necessary to get data from the DNS server.
+// CallGetFileList is a creation function that returns a [core.APIMethod] corresponding to the method [getFileList].
+// The function expects the backup ID, for which it is necessary to get a list of files
+// and the path to the directory whose contents are being requested.
+// If the backup ID is a nil, the directory will be searched in the current copy.
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [getFileList]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getfilelist
 func CallGetFileList(backupID *result.ID, path string) core.APIMethod[result.FileList] {
 	return &getFileList{
 		BasicMethod: *api.CallMethod(GetFileListMethodPath, &getFileListRequest{BackupID: backupID, Path: path}, nil),
 	}
 }
 
-// GetHTTPMethod returns name of http method for method [getData].
+// GetHTTPMethod returns name of http method for method [getFileList].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [getFileList]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getfilelist
 func (*getFileList) GetHTTPMethod() string {
 	return http.MethodPost
 }
 
-// GetName returns name of method [getData].
+// GetName returns name of method [getFileList].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [getFileList]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getfilelist
 func (*getFileList) GetName() core.MethodName {
 	return GetFileListMethodName
 }

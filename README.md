@@ -1,6 +1,6 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/ThCompiler/go.beget.api)](https://goreportcard.com/report/github.com/ThCompiler/go.beget.api)
 [![Go Reference](https://pkg.go.dev/badge/github.com/ThCompiler/go.beget.api.svg)](https://pkg.go.dev/github.com/ThCompiler/go.beget.api)
-
+[![codecov](https://codecov.io/gh/ThCompiler/go.beget.api/graph/badge.svg?token=1B0YBTYJ4T)](https://codecov.io/gh/ThCompiler/go.beget.api)
 
 [![en](https://img.shields.io/badge/lang-ru-green.svg)](./README-RU.md)
 

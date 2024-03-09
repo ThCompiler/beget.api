@@ -2,20 +2,20 @@
 
 ### [Управление аккаунтом](https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom)
 
-* [ ] getAccountInfo
-* [ ] toggleSsh
+* [x] getAccountInfo
+* [x] toggleSsh
 
 ### [Управление бэкапами](https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami)
 
-* [ ] getFileBackupList
-* [ ] getMysqlBackupList
-* [ ] getFileList
-* [ ] getMysqlList
-* [ ] restoreFile
-* [ ] restoreMysql
-* [ ] downloadFile
-* [ ] downloadMysql
-* [ ] getLog
+* [x] getFileBackupList
+* [x] getMysqlBackupList
+* [x] getFileList
+* [x] getMysqlList
+* [x] restoreFile
+* [x] restoreMysql
+* [x] downloadFile
+* [x] downloadMysql
+* [x] getLog
 
 ### [Управление Cron](https://beget.com/ru/kb/api/funkczii-upravleniya-cron)
 

@@ -12,10 +12,12 @@ type downloadFile struct {
 	api.BasicMethod
 }
 
-// CallDownloadFile is a creation function that returns a [core.APIMethod] corresponding to the method [getData].
-// The function is waiting for the domain name for which it is necessary to get data from the DNS server.
+// CallDownloadFile is a creation function that returns a [core.APIMethod] corresponding to the method [downloadFile].
+// The function expects the backup ID from which files need to be downloaded
+// and a list of paths from which files are downloaded.
+// If the backup ID is a nil, the databases will be searched in the current copy.
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [downloadFile]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#downloadfile
 func CallDownloadFile(backupID *result.ID, paths []string) core.APIMethod[result.BoolResult] {
 	return &downloadFile{
 		BasicMethod: *api.CallMethod(
@@ -26,16 +28,16 @@ func CallDownloadFile(backupID *result.ID, paths []string) core.APIMethod[result
 	}
 }
 
-// GetHTTPMethod returns name of http method for method [getData].
+// GetHTTPMethod returns name of http method for method [downloadFile].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [downloadFile]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#downloadfile
 func (*downloadFile) GetHTTPMethod() string {
 	return http.MethodPost
 }
 
-// GetName returns name of method [getData].
+// GetName returns name of method [downloadFile].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [downloadFile]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#downloadfile
 func (*downloadFile) GetName() core.MethodName {
 	return DownloadFileMethodName
 }

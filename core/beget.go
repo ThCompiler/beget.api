@@ -19,25 +19,9 @@ type Client struct {
 	Password string // Password for API access of Beget.com user
 }
 
-// PrepareRequestWithClient is a function to prepare request to Beget.API system.
-// As input parameters, it expects to receive information about the user and a built api method to call and http.Client.
-// If http.client is nil, it will be created as an empty http.Client.
-// As a result, either a ready-to-execute request to the Beget.API is returned, or one of the errors:
-//   - Errors creating api method.
-//   - Errors resolving BEGET host
-//   - Errors creating HTTP request
-//
-// Currently, Golang cannot infer the Result generic parameter from the [APIMethod] interface,
-// so when calling the method, you need to explicitly specify the generic parameter.
-//
-// For example, with method [github.com/ThCompiler/go.beget.api/api/dns.CallGetData] ([GetData]):
-//
-//	 import "github.com/ThCompiler/go.beget.api/api/result"
-//
-//		client := Client{ login: "user", password: "password" }
-//		req, _ := PrepareRequest[result.GetData](client, dns.CallGetData("some.domain.com"))
-//
-// [GetData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// PrepareRequestWithClient is a function to prepare request to Beget.API system and specify http client.
+// The function works similarly [PrepareRequest].
+// If http.Client is nil, it will be created as a default http.Client.
 func PrepareRequestWithClient[Result any](
 	c Client, method APIMethod[Result], client *http.Client,
 ) (*BegetRequest[Result], error) {
@@ -78,7 +62,24 @@ func PrepareRequestWithClient[Result any](
 }
 
 // PrepareRequest is a function to prepare request to Beget.API system.
-// The function is an alias in the PrepareRequestWithClient for working with the default http client.
+// As input parameters, it expects to receive information about the user.
+// Use default http.Client to send request.
+// As a result, either a ready-to-execute request to the Beget.API is returned, or one of the errors:
+//   - Errors creating api method.
+//   - Errors resolving BEGET host
+//   - Errors creating HTTP request
+//
+// Currently, Golang cannot infer the Result generic parameter from the [APIMethod] interface,
+// so when calling the method, you need to explicitly specify the generic parameter.
+//
+// For example, with method [github.com/ThCompiler/go.beget.api/api/dns.CallGetData] ([GetData]):
+//
+//	 import "github.com/ThCompiler/go.beget.api/api/result"
+//
+//		client := Client{ login: "user", password: "password" }
+//		req, _ := PrepareRequest[result.GetData](client, dns.CallGetData("some.domain.com"))
+//
+// [GetData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 func PrepareRequest[Result any](c Client, method APIMethod[Result]) (*BegetRequest[Result], error) {
 	return PrepareRequestWithClient[Result](c, method, nil)
 }

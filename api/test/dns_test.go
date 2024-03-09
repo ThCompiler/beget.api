@@ -57,7 +57,7 @@ func (ap *APISuite) TestGetData() {
 	ap.RunTest(
 		func(response string) GetData {
 			ap.server.DNSGetData(response, func(values url.Values) {
-				RequireEqualValues(ap.T(), url.Values{
+				requireEqualValues(ap.T(), url.Values{
 					"input_format": []string{string(core.JSON)},
 				}, values, client, "input_data")
 
@@ -129,7 +129,7 @@ func (ap *APISuite) TestChangeRecords() {
 	ap.RunTest(
 		func(records dns.SettableRecords) bool {
 			ap.server.DNSChangeRecords(changeRecordsResponse, func(values url.Values) {
-				RequireEqualValues(ap.T(), url.Values{
+				requireEqualValues(ap.T(), url.Values{
 					"input_format": []string{string(core.JSON)},
 				}, values, client, "input_data")
 

@@ -14,21 +14,22 @@ const (
 	fTPLoginField = "ftplogin"
 )
 
+// Status represents the status of SSH permissions.
 type Status rune
 
 const (
-	ENABLE  Status = '1'
-	DISABLE Status = '0'
+	ENABLE  Status = '1' // SSH connection is enabled for an account
+	DISABLE Status = '0' // SSH connection is disabled for an account
 )
 
 type toggleSSH struct {
 	api.BasicMethod
 }
 
-// CallToggleSSH is a creation function that returns a [core.APIMethod] corresponding to the method [getData].
-// The function is waiting for the domain name for which it is necessary to get data from the DNS server.
+// CallToggleSSH is a creation function that returns a [core.APIMethod] corresponding to the method [toggleSsh].
+// The function is waiting for SSH status to be received for the main Beget account.
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [toggleSsh]: https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom#togglessh
 func CallToggleSSH(status Status) core.APIMethod[result.SSHToggle] {
 	return &toggleSSH{
 		BasicMethod: *api.CallMethod(
@@ -41,10 +42,10 @@ func CallToggleSSH(status Status) core.APIMethod[result.SSHToggle] {
 	}
 }
 
-// CallToggleSSHFTP is a creation function that returns a [core.APIMethod] corresponding to the method [getData].
-// The function is waiting for the domain name for which it is necessary to get data from the DNS server.
+// CallToggleSSHFTP is a creation function that returns a [core.APIMethod] corresponding to the method [toggleSsh].
+// The function waits for the FTP account login and SSH status for this account.
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [toggleSsh]: https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom#togglessh
 func CallToggleSSHFTP(status Status, fTPLogin string) core.APIMethod[result.SSHToggle] {
 	return &toggleSSH{
 		BasicMethod: *api.CallMethod(
@@ -58,16 +59,16 @@ func CallToggleSSHFTP(status Status, fTPLogin string) core.APIMethod[result.SSHT
 	}
 }
 
-// GetHTTPMethod returns name of http method for method [getData].
+// GetHTTPMethod returns name of http method for method [toggleSsh].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [toggleSsh]: https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom#togglessh
 func (*toggleSSH) GetHTTPMethod() string {
 	return http.MethodPost
 }
 
-// GetName returns name of method [getData].
+// GetName returns name of method [toggleSsh].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [toggleSsh]: https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom#togglessh
 func (*toggleSSH) GetName() core.MethodName {
 	return ToggleSSHMethodName
 }

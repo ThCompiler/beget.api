@@ -43,7 +43,7 @@ func (ap *APISuite) TestGetBackupFileList() {
 	ap.server.BackupGetFileBackupList(
 		createByTemplate(ap.T(), "fileBackup", getBackupListResponse, backupFileListResponse),
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{}, values, client)
+			requireEqualValues(ap.T(), url.Values{}, values, client)
 		},
 	)
 
@@ -80,7 +80,7 @@ func (ap *APISuite) TestGetBackupMYSQLList() {
 	ap.server.BackupGetMYSQLBackupList(
 		createByTemplate(ap.T(), "mysqlBackup", getBackupListResponse, backupMYSQLListResponse),
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{}, values, client)
+			requireEqualValues(ap.T(), url.Values{}, values, client)
 		},
 	)
 
@@ -142,7 +142,7 @@ func (ap *APISuite) TestGetFileList() {
 	ap.server.BackupGetFileList(
 		createByTemplate(ap.T(), "files", getFileListResponse, fileListResponse),
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{
+			requireEqualValues(ap.T(), url.Values{
 				"input_format": []string{string(core.JSON)},
 			}, values, client, "input_data")
 			require.True(ap.T(), values.Has("input_data"))
@@ -206,7 +206,7 @@ func (ap *APISuite) TestGetMYSQLList() {
 	ap.server.BackupGetMYSQLList(
 		createByTemplate(ap.T(), "MYSQLes", getMYSQLListResponse, mYSQLListResponse),
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{
+			requireEqualValues(ap.T(), url.Values{
 				"input_format": []string{string(core.JSON)},
 			}, values, client, "input_data")
 			require.True(ap.T(), values.Has("input_data"))
@@ -264,7 +264,7 @@ func (ap *APISuite) TestRestoreFile() {
 	ap.server.BackupRestoreFile(
 		backupSuccessResponse,
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{
+			requireEqualValues(ap.T(), url.Values{
 				"input_format": []string{string(core.JSON)},
 			}, values, client, "input_data")
 			require.True(ap.T(), values.Has("input_data"))
@@ -312,7 +312,7 @@ func (ap *APISuite) TestRestoreMYSQL() {
 	ap.server.BackupRestoreMYSQL(
 		backupSuccessResponse,
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{
+			requireEqualValues(ap.T(), url.Values{
 				"input_format": []string{string(core.JSON)},
 			}, values, client, "input_data")
 			require.True(ap.T(), values.Has("input_data"))
@@ -360,7 +360,7 @@ func (ap *APISuite) TestDownloadFile() {
 	ap.server.BackupDownloadFile(
 		backupSuccessResponse,
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{
+			requireEqualValues(ap.T(), url.Values{
 				"input_format": []string{string(core.JSON)},
 			}, values, client, "input_data")
 			require.True(ap.T(), values.Has("input_data"))
@@ -408,7 +408,7 @@ func (ap *APISuite) TestDownloadMYSQL() {
 	ap.server.BackupDownloadMYSQL(
 		backupSuccessResponse,
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{
+			requireEqualValues(ap.T(), url.Values{
 				"input_format": []string{string(core.JSON)},
 			}, values, client, "input_data")
 			require.True(ap.T(), values.Has("input_data"))
@@ -494,7 +494,7 @@ func (ap *APISuite) TestGetLog() {
 	ap.server.BackupGetLog(
 		createByTemplate(ap.T(), "log", getLogResponse, logResponse),
 		func(values url.Values) {
-			RequireEqualValues(ap.T(), url.Values{}, values, client, "input_data")
+			requireEqualValues(ap.T(), url.Values{}, values, client, "input_data")
 		},
 	)
 

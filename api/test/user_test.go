@@ -52,7 +52,7 @@ func (ap *APISuite) TestGetAccountInfo() {
 	}
 
 	ap.server.UserGetAccountInfo(getAccountResponse, func(values url.Values) {
-		RequireEqualValues(ap.T(), url.Values{}, values, client)
+		requireEqualValues(ap.T(), url.Values{}, values, client)
 	})
 
 	req, err := core.PrepareRequest[result.UserInfo](
@@ -83,7 +83,7 @@ func (ap *APISuite) TestToggleSSHForUser() {
 	}
 
 	ap.server.UserToggleSSH(toggleSSHResponse, func(values url.Values) {
-		RequireEqualValues(ap.T(), url.Values{
+		requireEqualValues(ap.T(), url.Values{
 			"status": []string{string(toggleStatus)},
 		}, values, client)
 	})
@@ -117,7 +117,7 @@ func (ap *APISuite) TestToggleSSHForFTPUser() {
 	}
 
 	ap.server.UserToggleSSH(toggleSSHResponse, func(values url.Values) {
-		RequireEqualValues(ap.T(), url.Values{
+		requireEqualValues(ap.T(), url.Values{
 			"status":   []string{string(toggleStatus)},
 			"ftplogin": []string{ftpUserName},
 		}, values, client)

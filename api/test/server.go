@@ -1,40 +1,37 @@
+// Package test implements the functionality of test server emulating the work of a Beget server.
 package test
 
 import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
 
 	"github.com/ThCompiler/go.beget.api/api/backup"
 	"github.com/ThCompiler/go.beget.api/api/dns"
 	"github.com/ThCompiler/go.beget.api/api/user"
-	"github.com/ThCompiler/go.beget.api/core"
-	"github.com/ThCompiler/go.beget.api/pkg/maps"
 	"github.com/pkg/errors"
-	"github.com/stretchr/testify/require"
 )
 
-var ErrNotSetHandler = errors.New("handler wasn't set")
+var ErrNotSetHandler = errors.New("handler wasn't set") // "handler wasn't set".
 
-type HandlerPair struct {
+type handlerPair struct {
 	Body                string
 	CheckValuesFunction func(url.Values)
 }
 
-func Default() *HandlerPair {
-	return &HandlerPair{
+func emptyPair() *handlerPair {
+	return &handlerPair{
 		Body:                "",
 		CheckValuesFunction: nil,
 	}
 }
 
-func (h *HandlerPair) Set(body string, checkValuesFunction func(url.Values)) {
+func (h *handlerPair) Set(body string, checkValuesFunction func(url.Values)) {
 	h.Body = body
 	h.CheckValuesFunction = checkValuesFunction
 }
 
-func APIHandler(pair *HandlerPair) http.HandlerFunc {
+func aPIHandler(pair *handlerPair) http.HandlerFunc {
 	return func(resp http.ResponseWriter, req *http.Request) {
 		if pair.CheckValuesFunction == nil {
 			panic(errors.Wrapf(ErrNotSetHandler, "with path of handler %s", req.URL.Path))
@@ -49,63 +46,72 @@ func APIHandler(pair *HandlerPair) http.HandlerFunc {
 	}
 }
 
-type Handlers struct {
-	GetAccountInfo     *HandlerPair
-	ToggleSSH          *HandlerPair
-	GetData            *HandlerPair
-	ChangeRecords      *HandlerPair
-	GetFileBackupList  *HandlerPair
-	GetFileList        *HandlerPair
-	GetMYSQLBackupList *HandlerPair
-	GetMYSQLList       *HandlerPair
-	RestoreFile        *HandlerPair
-	RestoreMYSQL       *HandlerPair
-	DownloadFile       *HandlerPair
-	DownloadMYSQL      *HandlerPair
-	GetLog             *HandlerPair
+type handlers struct {
+	GetAccountInfo     *handlerPair
+	ToggleSSH          *handlerPair
+	GetData            *handlerPair
+	ChangeRecords      *handlerPair
+	GetFileBackupList  *handlerPair
+	GetFileList        *handlerPair
+	GetMYSQLBackupList *handlerPair
+	GetMYSQLList       *handlerPair
+	RestoreFile        *handlerPair
+	RestoreMYSQL       *handlerPair
+	DownloadFile       *handlerPair
+	DownloadMYSQL      *handlerPair
+	GetLog             *handlerPair
 }
 
-func DefaultHandlers() *Handlers {
-	return &Handlers{
-		GetAccountInfo:     Default(),
-		ToggleSSH:          Default(),
-		GetData:            Default(),
-		ChangeRecords:      Default(),
-		GetFileBackupList:  Default(),
-		GetFileList:        Default(),
-		GetMYSQLBackupList: Default(),
-		GetMYSQLList:       Default(),
-		RestoreFile:        Default(),
-		RestoreMYSQL:       Default(),
-		DownloadFile:       Default(),
-		DownloadMYSQL:      Default(),
-		GetLog:             Default(),
+func defaultHandlers() *handlers {
+	return &handlers{
+		GetAccountInfo:     emptyPair(),
+		ToggleSSH:          emptyPair(),
+		GetData:            emptyPair(),
+		ChangeRecords:      emptyPair(),
+		GetFileBackupList:  emptyPair(),
+		GetFileList:        emptyPair(),
+		GetMYSQLBackupList: emptyPair(),
+		GetMYSQLList:       emptyPair(),
+		RestoreFile:        emptyPair(),
+		RestoreMYSQL:       emptyPair(),
+		DownloadFile:       emptyPair(),
+		DownloadMYSQL:      emptyPair(),
+		GetLog:             emptyPair(),
 	}
 }
 
+// BegetServer is an extension of the [httptest.Server] to work with Beget Server.
+// Supports processing of all api methods implemented by the package.
+//
+// # Important
+//
+// If the handler is not specified and the appropriate method is invoked,
+// the server will panic with [ErrNotSetHandler].
 type BegetServer struct {
-	handlers *Handlers
+	handlers *handlers
 	mux      *http.ServeMux
 	server   *httptest.Server
 }
 
+// NewBegetServer creates a new [BegetServer].
+// The [httptest.Server] will be started.
 func NewBegetServer() *BegetServer {
-	handlers := DefaultHandlers()
+	handlers := defaultHandlers()
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/"+user.GetAccountInfoPath, APIHandler(handlers.GetAccountInfo))
-	mux.HandleFunc("/"+user.ToggleSSHMethodPath, APIHandler(handlers.ToggleSSH))
-	mux.HandleFunc("/"+dns.GetDataMethodPath, APIHandler(handlers.GetData))
-	mux.HandleFunc("/"+dns.ChangeRecordsMethodPath, APIHandler(handlers.ChangeRecords))
-	mux.HandleFunc("/"+backup.GetFileBackupListMethodPath, APIHandler(handlers.GetFileBackupList))
-	mux.HandleFunc("/"+backup.GetMysqlBackupListMethodPath, APIHandler(handlers.GetMYSQLBackupList))
-	mux.HandleFunc("/"+backup.GetFileListMethodPath, APIHandler(handlers.GetFileList))
-	mux.HandleFunc("/"+backup.GetMysqlListMethodPath, APIHandler(handlers.GetMYSQLList))
-	mux.HandleFunc("/"+backup.GetLogMethodPath, APIHandler(handlers.GetLog))
-	mux.HandleFunc("/"+backup.RestoreFileMethodPath, APIHandler(handlers.RestoreFile))
-	mux.HandleFunc("/"+backup.RestoreMysqlMethodPath, APIHandler(handlers.RestoreMYSQL))
-	mux.HandleFunc("/"+backup.DownloadFileMethodPath, APIHandler(handlers.DownloadFile))
-	mux.HandleFunc("/"+backup.DownloadMysqlMethodPath, APIHandler(handlers.DownloadMYSQL))
+	mux.HandleFunc("/"+user.GetAccountInfoPath, aPIHandler(handlers.GetAccountInfo))
+	mux.HandleFunc("/"+user.ToggleSSHMethodPath, aPIHandler(handlers.ToggleSSH))
+	mux.HandleFunc("/"+dns.GetDataMethodPath, aPIHandler(handlers.GetData))
+	mux.HandleFunc("/"+dns.ChangeRecordsMethodPath, aPIHandler(handlers.ChangeRecords))
+	mux.HandleFunc("/"+backup.GetFileBackupListMethodPath, aPIHandler(handlers.GetFileBackupList))
+	mux.HandleFunc("/"+backup.GetMysqlBackupListMethodPath, aPIHandler(handlers.GetMYSQLBackupList))
+	mux.HandleFunc("/"+backup.GetFileListMethodPath, aPIHandler(handlers.GetFileList))
+	mux.HandleFunc("/"+backup.GetMysqlListMethodPath, aPIHandler(handlers.GetMYSQLList))
+	mux.HandleFunc("/"+backup.GetLogMethodPath, aPIHandler(handlers.GetLog))
+	mux.HandleFunc("/"+backup.RestoreFileMethodPath, aPIHandler(handlers.RestoreFile))
+	mux.HandleFunc("/"+backup.RestoreMysqlMethodPath, aPIHandler(handlers.RestoreMYSQL))
+	mux.HandleFunc("/"+backup.DownloadFileMethodPath, aPIHandler(handlers.DownloadFile))
+	mux.HandleFunc("/"+backup.DownloadMysqlMethodPath, aPIHandler(handlers.DownloadMYSQL))
 
 	return &BegetServer{
 		handlers: handlers,
@@ -114,110 +120,124 @@ func NewBegetServer() *BegetServer {
 	}
 }
 
-func (s *BegetServer) UserGetAccountInfo(body string, checkValuesFunction func(url.Values)) *BegetServer {
-	s.handlers.GetAccountInfo.Set(body, checkValuesFunction)
-
-	return s
-}
-
-func (s *BegetServer) UserToggleSSH(body string, checkValuesFunction func(url.Values)) *BegetServer {
-	s.handlers.ToggleSSH.Set(body, checkValuesFunction)
-
-	return s
-}
-
+// DNSGetData specify handler for [getData] method.
+//
+// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
 func (s *BegetServer) DNSGetData(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.GetData.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// DNSChangeRecords specify handler for [changeRecords] method.
+//
+// [changeRecords]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#changerecords
 func (s *BegetServer) DNSChangeRecords(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.ChangeRecords.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// UserGetAccountInfo specify handler for [getAccountInfo] method.
+//
+// [getAccountInfo]: https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom#getaccountinfo
+func (s *BegetServer) UserGetAccountInfo(body string, checkValuesFunction func(url.Values)) *BegetServer {
+	s.handlers.GetAccountInfo.Set(body, checkValuesFunction)
+
+	return s
+}
+
+// UserToggleSSH specify handler for [toggleSsh] method.
+//
+// [toggleSsh]: https://beget.com/ru/kb/api/funkczii-upravleniya-akkauntom#togglessh
+func (s *BegetServer) UserToggleSSH(body string, checkValuesFunction func(url.Values)) *BegetServer {
+	s.handlers.ToggleSSH.Set(body, checkValuesFunction)
+
+	return s
+}
+
+// BackupGetFileBackupList specify handler for [getFileBackupList] method.
+//
+// [getFileBackupList]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getfilebackuplist
 func (s *BegetServer) BackupGetFileBackupList(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.GetFileBackupList.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupGetMYSQLBackupList specify handler for [getMysqlBackupList] method.
+//
+// [getMysqlBackupList]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getmysqlbackuplist
 func (s *BegetServer) BackupGetMYSQLBackupList(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.GetMYSQLBackupList.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupGetFileList specify handler for [getFileList] method.
+//
+// [getFileList]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getfilelist
 func (s *BegetServer) BackupGetFileList(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.GetFileList.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupGetMYSQLList specify handler for [getMysqlList] method.
+//
+// [getMysqlList]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getmysqllist
 func (s *BegetServer) BackupGetMYSQLList(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.GetMYSQLList.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupGetLog specify handler for [getLog] method.
+//
+// [getLog]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#getlog
 func (s *BegetServer) BackupGetLog(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.GetLog.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupRestoreFile specify handler for [restoreFile] method.
+//
+// [restoreFile]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#restorefile
 func (s *BegetServer) BackupRestoreFile(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.RestoreFile.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupRestoreMYSQL specify handler for [restoreMysql] method.
+//
+// [restoreMysql]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#restoremysql
 func (s *BegetServer) BackupRestoreMYSQL(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.RestoreMYSQL.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupDownloadFile specify handler for [downloadFile] method.
+//
+// [downloadFile]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#downloadfile
 func (s *BegetServer) BackupDownloadFile(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.DownloadFile.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// BackupDownloadMYSQL specify handler for [downloadMysql] method.
+//
+// [downloadMysql]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#downloadmysql
 func (s *BegetServer) BackupDownloadMYSQL(body string, checkValuesFunction func(url.Values)) *BegetServer {
 	s.handlers.DownloadMYSQL.Set(body, checkValuesFunction)
 
 	return s
 }
 
+// GetURL returns URL of test server.
 func (s *BegetServer) GetURL() string {
 	return s.server.URL
-}
-
-func (s *BegetServer) Start() {
-	s.server.Start()
-}
-
-func (s *BegetServer) Stop() {
-	s.server.Close()
-}
-
-func RequireEqualValues(t *testing.T, expected, actual url.Values, client core.Client, skipValues ...string) {
-	t.Helper()
-
-	expected.Add("login", client.Login)
-	expected.Add("passwd", client.Password)
-	expected.Add("output_format", string(core.JSON))
-
-	cpExpected := maps.Clone(expected)
-	cpActual := maps.Clone(actual)
-
-	for _, values := range skipValues {
-		cpExpected.Del(values)
-		cpActual.Del(values)
-	}
-
-	require.EqualValues(t, cpExpected, cpActual)
 }

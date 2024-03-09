@@ -12,10 +12,11 @@ type restoreMysql struct {
 	api.BasicMethod
 }
 
-// CallRestoreMysql is a creation function that returns a [core.APIMethod] corresponding to the method [getData].
-// The function is waiting for the domain name for which it is necessary to get data from the DNS server.
+// CallRestoreMysql is a creation function that returns a [core.APIMethod] corresponding to the method [restoreMysql].
+// The function expects the backup ID from which data needs to be restored,
+// and a list of databases whose data is being restored.
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [restoreMysql]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#restoremysql
 func CallRestoreMysql(backupID result.ID, bases []result.DatabaseName) core.APIMethod[result.BoolResult] {
 	return &restoreMysql{
 		BasicMethod: *api.CallMethod(
@@ -26,16 +27,16 @@ func CallRestoreMysql(backupID result.ID, bases []result.DatabaseName) core.APIM
 	}
 }
 
-// GetHTTPMethod returns name of http method for method [getData].
+// GetHTTPMethod returns name of http method for method [restoreMysql].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [restoreMysql]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#restoremysql
 func (*restoreMysql) GetHTTPMethod() string {
 	return http.MethodPost
 }
 
-// GetName returns name of method [getData].
+// GetName returns name of method [restoreMysql].
 //
-// [getData]: https://beget.com/ru/kb/api/funkczii-upravleniya-dns#getdata
+// [restoreMysql]: https://beget.com/ru/kb/api/funkczii-upravleniya-bekapami#restoremysql
 func (*restoreMysql) GetName() core.MethodName {
 	return RestoreMysqlMethodName
 }
