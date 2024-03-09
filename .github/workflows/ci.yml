@@ -72,7 +72,7 @@ jobs:
       - name: Verify dependencies
         run: go mod verify
       - name: Run tests
-        run: go test -race -vet=off -covermode=atomic -coverprofile=coverage.out ./...
+        run: go test -race -coverpkg=./... -vet=off -covermode=atomic -coverprofile=coverage.out ./...
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         env:
